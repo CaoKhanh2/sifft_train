@@ -27,6 +27,7 @@ def input():
 
 def show_img(path):
     img = Image.open(path)
+    img = cv2.resize(img, (640, 640))
     image = ImageTk.PhotoImage(img)
     image_label.configure(image=image)
     image_label.image = image
@@ -78,6 +79,15 @@ def show_next_image():
     current_index = current_index + 1
     output()
 
+def new():
+    global current_index
+    current_index = 0
+
+    input_entry.delete(0, END)
+    image_label.config(image=None)
+    image_label.image = None
+    lbl.configure(text="")
+    lbl.pack()
 
 top_frame = Frame(root)
 bottom_frame = Frame(root)
@@ -106,6 +116,9 @@ button.pack(side=RIGHT,pady=20, fill=X)
 
 button = Button(bottom_frame, text='Next',command=show_next_image)
 button.pack(side=RIGHT,pady=25, fill=X)
+
+button = Button(bottom_frame, text='New',command=new)
+button.pack(side=RIGHT,pady=40, fill=X)
 
 
 root.mainloop()
